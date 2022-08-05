@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Top 3 studios with winners</h5>
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Wins</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+          <tr *ngFor="let studio of winnerStudios">
+          <td>{{ studio.name }}</td>
+          <td>{{ studio.wins }}</td>
+        </tr>  
+      </tbody>
+    </table>
+  </div>
+</div>

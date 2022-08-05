@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">List years with multiple winners</h5>
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th>Year</th>
+          <th>With count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+        <tr *ngFor="let year of yersList">
+          <td>{{ year.year }}</td>
+          <td>{{ year.winners }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

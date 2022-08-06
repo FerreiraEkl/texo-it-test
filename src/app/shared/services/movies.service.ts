@@ -42,13 +42,6 @@ export class MoviesService {
     );
   }
 }
-export interface IMovieFilter {
-  /** If movie was winner in the search year */
-  winner: boolean;
-
-  /** Search year */
-  year: number;
-}
 
 enum projection {
   WIN_INTERVAL = 'max-min-win-interval-for-producers',
@@ -56,7 +49,15 @@ enum projection {
   MULTIPLE_WINNERS = 'years-with-multiple-winners',
 }
 
-interface IPaginatedMovieFilter extends IMovieFilter {
+export interface IMovieFilter {
+  /** If movie was winner in the search year */
+  winner?: boolean;
+
+  /** Search year */
+  year?: number;
+}
+
+export interface IPaginatedMovieFilter extends IMovieFilter {
   /** Search page*/
   page: number;
 

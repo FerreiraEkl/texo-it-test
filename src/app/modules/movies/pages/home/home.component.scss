@@ -1,0 +1,32 @@
+.main {
+  width: 87.5vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+
+  thead {
+    th {
+      > :first-child {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+    .page-link{
+      color: #495057;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+      &.active{
+        color: white;
+        background-color: blueviolet;
+      }
+    }
+  }
+}

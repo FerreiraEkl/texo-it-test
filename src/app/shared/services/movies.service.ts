@@ -19,26 +19,26 @@ export class MoviesService {
   }
 
   getMovies(filter: IMovieFilter) {
-    return this.http.get<IWinnerMovie>(
+    return this.http.get<IWinnerMovie[]>(
       `${DEFAULT_URL}?${this.httpUtilsService.build(filter)}`,
     );
   }
 
   getYearsWithMultipleWinners() {
     return this.http.get<IMultipleWinners>(
-      `${DEFAULT_URL}?projection=years-with-multiple-winners`,
+      `${DEFAULT_URL}?projection=${projection.MULTIPLE_WINNERS}`,
     );
   }
 
   getWinsByStudio() {
     return this.http.get<IStudioWins>(
-      `${DEFAULT_URL}?projection=studios-with-win-count`,
+      `${DEFAULT_URL}?projection=${projection.WIN_BY_STUDIO}`,
     );
   }
 
   getWinInterval() {
     return this.http.get<IWinIntervalResponse>(
-      `${DEFAULT_URL}?projection=max-min-win-interval-for-producers`,
+      `${DEFAULT_URL}?projection=${projection.WIN_INTERVAL}`,
     );
   }
 }
@@ -48,6 +48,12 @@ export interface IMovieFilter {
 
   /** Search year */
   year: number;
+}
+
+enum projection {
+  WIN_INTERVAL = 'max-min-win-interval-for-producers',
+  WIN_BY_STUDIO = 'studios-with-win-count',
+  MULTIPLE_WINNERS = 'years-with-multiple-winners',
 }
 
 interface IPaginatedMovieFilter extends IMovieFilter {
@@ -84,7 +90,7 @@ interface IWinnerMoviesPaginated {
   size: number;
 }
 
-interface IWinnerMovie {
+export interface IWinnerMovie {
   id: number;
   year: number;
   title: string;

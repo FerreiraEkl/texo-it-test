@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">List years with multiple winners</h5>
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered">
       <thead class="thead-light">
         <tr>
           <th>Year</th>
@@ -10,9 +10,9 @@
       </thead>
       <tbody>
         <tr></tr>
-        <tr *ngFor="let year of yersList">
+        <tr *ngFor="let year of years">
           <td>{{ year.year }}</td>
-          <td>{{ year.winners }}</td>
+          <td>{{ year.winnerCount }}</td>
         </tr>
       </tbody>
     </table>

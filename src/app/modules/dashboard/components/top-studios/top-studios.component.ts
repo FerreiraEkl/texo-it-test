@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
   selector: 'app-top-studios',
@@ -6,15 +8,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./top-studios.component.scss'],
 })
 export class TopStudiosComponent implements OnInit {
-  @Input()
   winnerStudios: IWinnerStudio[] = [];
 
-  constructor() {}
+  constructor(private movieService: MoviesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.load();
+  }
+
+  private async load() {
+    const response = await firstValueFrom(this.movieService.getWinsByStudio());
+
+    this.winnerStudios = response.studios.slice(0, 3);
+  }
 }
 
 export interface IWinnerStudio {
   name: string;
-  wins: number;
+  winCount: number;
 }

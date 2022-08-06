@@ -1,0 +1,12 @@
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  section {
+    h4 {
+      color: lightgray;
+      font-weight: 150;
+    }
+  }
+}

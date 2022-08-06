@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
   selector: 'app-multiple-winners',
@@ -6,15 +8,24 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./multiple-winners.component.scss'],
 })
 export class MultipleWinnersComponent implements OnInit {
-  @Input()
-  yersList: IWinnersByYear[] = [];
+  years: IWinnersByYear[] = [];
 
-  constructor() {}
+  constructor(private movieService: MoviesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.load();
+  }
+
+  private async load() {
+    const response = await firstValueFrom(
+      this.movieService.getYearsWithMultipleWinners(),
+    );
+
+    this.years = response.years;
+  }
 }
 
 export interface IWinnersByYear {
   year: number;
-  winners: number;
+  winnerCount: number;
 }

@@ -14,7 +14,7 @@ export class HttpUtilsService {
   public build<T>(params: T): string {
     return (Object.keys(params) as Array<keyof T>)
       .filter((key) => params[key] !== undefined)
-      .map((key) => `${key}=${params[key]}`)
+      .map((key) => `${key as string}=${params[key]}`)
       .join('&');
   }
 }

@@ -58,7 +58,17 @@
             <li class="page-item">
               <a
                 class="page-link"
-                (click)="navigate(curentFilter.page - 1)"
+                (click)="goFirst()"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&lt;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                (click)="goPrevious()"
                 aria-label="Previous"
               >
                 <span aria-hidden="true">&laquo;</span>
@@ -79,9 +89,19 @@
               <a
                 class="page-link"
                 aria-label="Next"
-                (click)="navigate(curentFilter.page + 1)"
+                (click)="goNext()"
               >
                 <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                aria-label="Next"
+                (click)="goLast()"
+              >
+                <span aria-hidden="true">&gt;</span>
                 <span class="sr-only">Next</span>
               </a>
             </li>

@@ -30,31 +30,36 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private movieService: MoviesService) {
     this.formSub = this.yearControl.valueChanges
-      .pipe(debounceTime(750))
-      .subscribe((year) => {
+      .pipe(debounceTime(1000))
+      .subscribe(async (year) => {
+
+        this.curentFilter.page = 1;
+
         if (!year) {
           delete this.curentFilter.year;
         } else {
           this.curentFilter.year = year;
         }
 
-        this.search();
+       await this.search();
       });
   }
 
-  ngOnInit(): void {
-    this.search();
+  async ngOnInit() {
+    await this.search();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
     this.formSub.unsubscribe();
   }
 
   private async search() {
+    const targetPage= this.curentFilter.page - 1;
+
     const response = await firstValueFrom(
       this.movieService.getMoviesPaginated({
         ...this.curentFilter,
-        page: this.curentFilter.page - 1,
+        page: targetPage,
       }),
     );
 
@@ -67,28 +72,46 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.movies = response.content;
   }
 
-  async yearSearch(year?: number) {
-    this.curentFilter.year = year;
-    this.search();
-  }
-
   async winnerSearch(winner?: string) {
+    this.curentFilter.page = 1;
+
     if (winner == 'undefined') {
       delete this.curentFilter.winner;
     } else {
       this.curentFilter.winner = winner as unknown as boolean;
     }
 
-    console.log(this.curentFilter);
-
     await this.search();
   }
 
+  // PAGINATION OPTIONS =================================
   async navigate(page: number) {
     if (!this.pages.includes(page)) {
       return;
     }
+    
     this.curentFilter.page = page;
-    this.search();
+
+    await this.search();
+  }
+  
+  goNext(){
+    const target = this.curentFilter.page +1
+    this.navigate(target)
+  }
+
+  goPrevious(){
+    const target = this.curentFilter.page -1
+    this.navigate(target)
+  }
+
+  goLast(){
+    const latsPage = this.pages[this.pages.length-1];
+    this.navigate(latsPage);
+  }
+
+  goFirst(){
+    const firstPage = this.pages[0];
+    this.navigate(firstPage);
   }
 }
